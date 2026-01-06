@@ -8,10 +8,16 @@ import CheckoutFlow from './CheckoutFlow';
 import './styles.css';
 
 function CheckoutExercise() {
-  const [items, dispatch] = React.useReducer(
+  const [{ items, loading }, dispatch] = React.useReducer(
     reducer,
-    []
+    { items: [], loading: true }
   );
+
+  React.useEffect(() => {
+    dispatch({
+      type: 'load-items',
+    });
+  }, [dispatch]);
 
   return (
     <>
@@ -34,6 +40,7 @@ function CheckoutExercise() {
         </div>
 
         <CheckoutFlow
+          loading={loading}
           items={items}
           taxRate={0.15}
           handleDeleteItem={(item) =>

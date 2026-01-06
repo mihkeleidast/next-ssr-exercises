@@ -2,12 +2,22 @@
 import React from 'react';
 
 import CartTable from './CartTable';
+import Spinner from '../../../components/Spinner';
 
 function CheckoutFlow({
   items,
   taxRate,
   handleDeleteItem,
+  loading,
 }) {
+  if (loading) {
+    return (
+      <div className="checkout-flow empty">
+        <Spinner />
+      </div>
+    )
+  }
+
   if (items.length === 0) {
     return (
       <div className="checkout-flow empty">
